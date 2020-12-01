@@ -30,7 +30,7 @@ class Service(models.Model) :
     name = models.CharField(max_length = 30)
     subcategory = models.ForeignKey(Subcategory , on_delete = models.CASCADE , blank = True , null = True,related_name='subcategory')
     category = models.ForeignKey(Category , on_delete = models.CASCADE,related_name='category')
-    cuser = models.ManyToManyField(cuser,related_name='User')
+    cuser = models.ForeignKey(cuser,related_name='use',on_delete=models.CASCADE)
     description = models.CharField(max_length = 250)
     picture = models.ImageField(upload_to='logo/', blank = True , null = True)
     price = models.IntegerField()

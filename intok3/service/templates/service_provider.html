@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+
+مالک سرویس
+
+{% endblock title %}
+
+{% block content %}
+
+{% for e in user %}
+
+<ul>
+    <li>
+        {{e.username}}
+            <ul>
+                <li>{{e.email}}</li>
+                <li>{{e.website}}</li>
+
+                <li>{{e.address}}</li>
+                <li>{{e.linkedin}}</li>
+                <li>{{e.description}}</li>
+            </ul>
+    </li>
+</ul>
+
+{% endfor %}
+
+{% endblock content %}

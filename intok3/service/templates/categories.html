@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+
+لیست کتگوری
+
+{% endblock title %}
+
+{% block content %}
+
+{% for e in categories %}
+
+<ul>
+    <li>
+        <a href="{% url 'show-subs' cat_id=e.id %}">{{ e.name }}</a>
+
+    </li>
+</ul>
+
+{% endfor %}
+
+{% endblock content %}
