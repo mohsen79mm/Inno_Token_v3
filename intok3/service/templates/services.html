@@ -1,23 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}
 
-لیست سرویس ها
+services
 
 {% endblock title %}
 
 {% block content %}
 
-{% for e in service %}
+{% for e in object_list %}
+
+
 
 <ul>
     <li>
-        <a href="{% url 'show-provider' service_id=e.id %}">{{e.name}}</a>
-        <ul>
-            <li>describtion : {{e.description}}</li>
 
-            <li>price : {{e.price}}</li>
-        </ul>
+        {{ e.name }}
+
     </li>
+
+    <li>describtion : {{e.description}}</li>
+
+    <li>price : {{e.price}}</li>
+
 </ul>
 
 {% endfor %}

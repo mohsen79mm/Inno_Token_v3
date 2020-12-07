@@ -7,11 +7,14 @@
 
 {% block content %}
 
-{% for e in categories %}
+{% for e in object_list %}
+
+
 
 <ul>
     <li>
-        <a href="{% url 'show-subs' cat_id=e.id %}">{{ e.name }}</a>
+
+        <a href="{% url 'subcategory-list' cat_id=e.id %}">{{ e.name }}</a>
 
     </li>
 </ul>

@@ -1,14 +1,14 @@
 from django.urls import path
 
-from .views import show_categories,show_sub,show_service,show_user_service
 
+from .views import categorylist,subcategorylist,servicelist
 urlpatterns = [
 
-    # path('show_services/', get_services,name='services'),
-    # path('service_detail/<int:serv_id>',service_detail,name='service-detail'),
-    path('',show_categories,name='show-categories'),
-    path('show_subs/<int:cat_id>',show_sub,name='show-subs'),
-    path('show_services/<int:subcategory_id>',show_service,name='show-services'),
-    path('show_provider/<int:service_id>',show_user_service,name='show-provider'),
+    path('',categorylist.as_view(),name='category-list'),
+    path('show_subs/<int:cat_id>',subcategorylist.as_view(), name='subcategory-list'),
+    path('show_services/<int:sub_id>',servicelist.as_view(), name='service-list'),
+
+
+
 
 ]

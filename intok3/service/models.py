@@ -25,7 +25,7 @@ class Subcategory(models.Model):
 
 
 
-class Service(models.Model) : 
+class Service(models.Model) :
 
     name = models.CharField(max_length = 30)
     subcategory = models.ForeignKey(Subcategory , on_delete = models.CASCADE , blank = True , null = True,related_name='subcategory')
@@ -34,8 +34,13 @@ class Service(models.Model) :
     description = models.CharField(max_length = 250)
     picture = models.ImageField(upload_to='logo/', blank = True , null = True)
     price = models.IntegerField()
-    
+
     def __str__(self) :
         return self.name
+
+
+
+
+
 
 
