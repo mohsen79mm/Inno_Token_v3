@@ -28,10 +28,13 @@ def postDetail(request, url):
 
 
 def tagged(request,tag) : 
+    print('here -> ')
     gag = get_object_or_404(Tag , slug = tag) 
+    print('here -> ',gag)
     posts = Post.objects.filter(tag = gag)
     context = {
         'tag' : gag , 
         'posts' : posts ,
     }
-    return(request , 'tag_list.html' , context)
+    print(posts)
+    return render(request , 'tag_list.html' , context)
