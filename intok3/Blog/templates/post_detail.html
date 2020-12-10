@@ -1,0 +1,19 @@
+{% extends 'base1.html' %} {% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <p class=" text-muted">{{ object.author }} | {{ object.created_on }}</p>
+        <p class="card-text ">{{ object.content | safe }}</p>
+        {% for tag in object.tag.all %}
+        <a href="{% url 'tagged' tag  %}" > {{tag}} </a>
+        {% endfor %}
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+{% endblock content %}
