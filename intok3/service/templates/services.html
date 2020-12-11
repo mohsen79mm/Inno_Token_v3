@@ -14,7 +14,7 @@ services
 <ul>
     <li>
 
-        {{ e.name }}
+        <a href="{% url 'user-list' service_id=e.id %}">{{ e.name }}</a>
 
     </li>
 

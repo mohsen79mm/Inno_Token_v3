@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from userprofile.models import *
 from .models import Subcategory, Category, Service
-from django.views.generic import ListView
-
+from django.views.generic import ListView,DetailView
+from django.views import View
 
 class categorylist(ListView):
     model = Category
@@ -22,5 +23,19 @@ class servicelist(ListView):
     def get_queryset(self):
 
         return Service.objects.filter(subcategory__id=self.kwargs['sub_id'])
+
+
+class userlist(View):
+    def get(self,request,service_id):
+        service_obj = get_object_or_404(Service, id=service_id)
+        username=service_obj.cuser
+        # users = service_obj.use.all()
+        user = cuser.objects.filter(username__contains=username)
+        # print(users)
+        # print(useraa)
+        context = {
+                'user':user
+                }
+        return render(request, 'user.html', context)
 
 
