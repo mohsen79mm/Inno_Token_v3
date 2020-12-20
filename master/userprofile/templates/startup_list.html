@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+اینو توکن
+{% endblock title %}
+
+{% block content %}
+    <h1>استارتاپ ها</h1>
+    {% for e in object_list%}
+        <a href="{% url 'startup_detail' e.id %}">{{e.name_of_company}}</a>
+    {% endfor %}
+{% endblock content %}
+
