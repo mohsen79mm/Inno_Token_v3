@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotAllowed, Http404, HttpResponse
 from django.db.models import Prefetch
 
-from .models import Cart, CartItems
+from .models import Cart, CartItems,Factor
 # from restaurant.models import Food
 from service.models import Service
 
@@ -62,7 +62,12 @@ def decrement_cart(request, service_id):
         # cart = request.cart
         cart_items = Cart.objects.prefetch_related(Prefetch(
             'service', queryset=CartItems.objects.select_related('service'))).get(user=request.user)
+        
+        
 
+        
+        # print(query)
+        
         try:
             cart_item = cart_items.service.get(service_id=service_id)
             if cart_item.qty > 1:
@@ -75,4 +80,24 @@ def decrement_cart(request, service_id):
 
         return redirect(request.GET.get('next', 'show_cart'))
     return HttpResponseNotAllowed("shab bekheir ba anke gtfe budi sobh bekheir")
+
+
+@login_required(login_url='login', redirect_field_name='next')
+def confirmation(request):
+    if request.method == 'POST':
+        
+        query =CartItems.objects.all().filter(cart=Cart.objects.get(user=request.user))
+
+        for item in query:
+          
+            Factor.objects.create(user=request.user,qty=item.qty,service=item.service.name,
+            total_price=(item.service.price)*item.qty)
+            item.delete()
+    
+        return redirect(request.GET.get('next', 'show_cart'))
+    return HttpResponseNotAllowed("shab bekheir ba anke gtfe budi sobh bekheir")
+
+
+
+
 
