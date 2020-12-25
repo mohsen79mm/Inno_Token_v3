@@ -87,10 +87,11 @@ def confirmation(request):
     if request.method == 'POST':
         
         query =CartItems.objects.all().filter(cart=Cart.objects.get(user=request.user))
-
+        
         for item in query:
+            # item.service.name
           
-            Factor.objects.create(user=request.user,qty=item.qty,service=item.service.name,
+            Factor.objects.create(user=request.user,qty=item.qty,service=Service.objects.get(name=item.service.name),
             total_price=(item.service.price)*item.qty)
             item.delete()
     

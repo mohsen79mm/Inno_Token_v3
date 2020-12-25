@@ -6,8 +6,11 @@
 
 {% block content %}
     <h1>صفحه اصلی</h1>
+    
+
+
     {% for key,value in category.items%}
-        <a href="{% url key %}">{{value}}</a>
+        <a href="{% url key %}">  |{{ value }}  </a>
     {% endfor %}
 {% endblock content %}
 

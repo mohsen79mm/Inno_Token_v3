@@ -34,7 +34,7 @@ class CartItems(models.Model):
 class Factor(models.Model):  
     user = models.ForeignKey(cuser,on_delete=models.CASCADE)        
     total_price = models.PositiveIntegerField(default=0)
-    service = models.CharField(max_length=255,blank=False)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE)
     update_time = models.TimeField(auto_now=True) 
     qty = models.PositiveIntegerField()
     
