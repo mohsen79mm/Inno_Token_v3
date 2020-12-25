@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+<head>
+    <link rel="canonical" href="{{ CANONICAL_PATH }}" />    
+
+</head>
+{% block title %}
+اینو توکن
+{% endblock title %}
+
+{% block content %}
+    <h1>صفحه اصلی</h1>
+    {% for key,value in category.items%}
+        <a href="{% url key %}">{{value}}</a>
+    {% endfor %}
+{% endblock content %}
+
+
+
