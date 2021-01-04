@@ -1,0 +1,97 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    
+
+
+
+
+
+
+
+<div class="container bootstrap snippets bootdey " style="margin-bottom: 100px; margin-left: 250px;">
+    <div class="col-md-9 col-sm-8 content">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                  <li><a href="#">صفحه اصلی/</a></li>
+                  <li class="active">سبد خرید</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info panel-shadow">
+                    <div class="panel-heading">
+                        <h3>
+                            <img class="img-circle img-thumbnail" src="https://bootdey.com/img/Content/user_3.jpg">
+                            {{request.user}}
+                        </h3>
+                    </div>
+                    <div class="panel-body"> 
+                        <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>تصویر کالا</th>
+                                <th>نام سرویس</th>
+                                <th>تعداد</th>
+                                <th>قیمت واحد</th>
+                                <th>قیمت کل</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_item %}
+                                <tr>
+                                    <td><img src="https://via.placeholder.com/400x200/FFB6C1/000000" class="img-cart"></td>
+                                    <td><strong>{{item.service.name}}</strong></td>
+                                    <td>
+                                    <form class="form-inline">
+                                        <input class="form-control" type="text" value="1">
+                                        <button rel="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i>-</button>
+                                        <a href="#" class="btn btn-primary"><i class="fa fa-trash-o">+</i></a>
+                                        <button type="button" class="btn btn-danger">حذف</button>
+
+                                    </form>
+                                    </td>
+                                    <td>{{item.service.price}}</td>
+                                    <td>{{item.service.price}}</td>
+                                </tr>
+                                {% endfor %}
+                                
+                                <tr>
+                                    <td colspan="6">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">قیمت کل محصولات</td>
+                                    <td>86.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">مالیات و ارزش افروده</td>
+                                    <td>2.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right"><strong>جمع کل</strong></td>
+                                    <td>88.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;ادامه فرایند خرید</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+

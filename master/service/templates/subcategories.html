@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+
+subcategory
+
+{% endblock title %}
+
+{% block content %}
+
+{% for e in object_list %}
+
+
+
+<ul>
+    <li>
+
+        <a href="{% url 'service_list' sub_id=e.id %}">{{ e.name }}</a>
+
+    </li>
+</ul>
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+اینو توکن
+{% endblock title %}
+
+{% block content %}
+    <h1>صفحه اصلی</h1>
+    <p>{{object.name_of_company}}</p>
+    <p>{{object.phone}}</p>
+
+    {% if object.logo  %}
+    <img src="{{object.logo.url}}">
+    {% endif %}
+    
+{% endblock content %}
+
