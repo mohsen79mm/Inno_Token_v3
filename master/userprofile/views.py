@@ -4,7 +4,7 @@ from django.views.generic import ListView,DetailView
 from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, CustomUserCreationForm
+from .forms import LoginForm, CustomUserCreationForm,CaptchaTestForm
 
 
 class StartupList(ListView):
@@ -42,16 +42,19 @@ class Login(View):
         if request.user.is_authenticated:
             return redirect('/')
         form = LoginForm()
+        form2 = CaptchaTestForm(request.POST)
         context = {
             'form': form,
-            'signup' : "ساخت اکانت"
+            'signup' : "ساخت اکانت",
+            'form2':form2,
         }
         return render(request, 'login.html', context)
     
     def post(self, request):
         form = LoginForm(request.POST)
+        form2 = CaptchaTestForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid()and form2.is_valid():
             phone = request.POST['phone']
             password = request.POST['password']
             user = authenticate(request, phone=phone, password=password)
@@ -59,8 +62,8 @@ class Login(View):
             if user:
                 login(request, user)
                 return redirect('/')
-            else:
-                return redirect('login')
+        else:
+            return redirect('login')
 
 class SignUp(View):
     def get(self, request):

@@ -42,6 +42,7 @@
                         <form action="/profile/login/" , method="post">
                             {% csrf_token %}
                             {{form.as_p }}
+                            {{form2}}
                             <input type="submit">
                             <input type="hidden" name="next" value="{{ next }}">
                         </form>
