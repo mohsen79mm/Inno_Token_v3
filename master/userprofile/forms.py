@@ -12,7 +12,14 @@ class CustomUserCreationForm(UserCreationForm):
         model = cuser
         fields = ['user_type', 'last_name','phone', 'password1', 'password2']
 
+class SmsPasswordForm(forms.Form):
+    phone = forms.CharField(max_length=11, required=True)
 
+
+class ChangePasswordForm(forms.Form):
+    old_pass = forms.CharField(widget=forms.PasswordInput)
+    new_pass = forms.CharField(widget=forms.PasswordInput)
+    
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
