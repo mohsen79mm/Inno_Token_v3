@@ -41,8 +41,3 @@ class Factor(models.Model):
 
     def __str__(self):
         return f'کاربر : {self.user} | سرویس : {self.service}  | تعداد : {self.qty}  | مبلغ کل : {self.total_price}'
-
-
-
-
-

@@ -26,9 +26,7 @@ SECRET_KEY = '4^)_sefycwy98!vxskfx1=v0ajnps3lqme9!8c@y_j*&m8z(55'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inntoken.ir',
-                'first-django-service-innotoken.fandogh.cloud',
-                '127.0.0.1',
+ALLOWED_HOSTS = [
                 ]
 
 
@@ -49,6 +47,8 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
+    'captcha',
+
 ]
 
 MIDDLEWARE = [

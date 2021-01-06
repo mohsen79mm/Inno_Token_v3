@@ -35,3 +35,4 @@ def tagged(request,tag) :
         'posts' : posts ,
     }
     return render(request , 'tag_list.html' , context)
+

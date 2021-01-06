@@ -36,7 +36,7 @@ class Service(models.Model) :
     price = models.IntegerField()
 
     def __str__(self) :
-        return self.name
+        return f"{self.name}-{self.cuser}"
 
 
 

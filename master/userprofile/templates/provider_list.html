@@ -7,9 +7,44 @@
 
 
 {% block content %}
-    <h1>خدمات دهندگان</h1>
-    {% for e in object_list %}
-        <a href="{% url 'provider_detail' e.id %}" > {{e.name_of_company}}</a>
-    {% endfor %}
+
+
+<div class="container">
+    <div class="row">
+        {% for obj in object_list %}
+        <div class="col-md-3 text-right">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    <div class="product-imitation">
+                        [ InnToken ]
+                    </div>
+                    <div class="product-desc">
+                        
+                        <p class="">{{obj.lastname}}  </p>
+    
+                        <div class="small m-t-xs" style="margin-bottom: 50px;">
+                            {{obj.description}}
+                        </div>
+                        
+                        <div class="m-t text-righ">
+    
+                            <a href="#" class="btn btn-xs btn-outline btn-primary">مشاهده  <i class="fa fa-long-arrow-left"> </i> </a>
+                            
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %} 
+    </div>
+    </div>
+
+
+
+
+
+
+    
 
 {% endblock content %}

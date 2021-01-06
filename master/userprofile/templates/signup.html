@@ -1,19 +1,114 @@
+{% extends 'base.html' %}
+
+{% load static %}  
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">signup</button>
-  </form>
+
+<div class="container">
+    
+  <hr>
+  
+  
+  <div class="row justify-content-center">
+  <div class="col-md-6">
+  <div class="card">
+  <header class="card-header">
+      <a href="" class="float-right btn btn-outline-primary mt-1">ورود</a>
+      <h4 class="card-title mt-2">ثبت نام</h4>
+  </header>
+  <article class="card-body">
+  <!-- <form method="POST">
+    {% csrf_token %} -->
+
+      <!-- <div class="form-row">
+          <div class="col form-group">
+              <label for="first_name">نام </label>   
+                <input id="first_name" type="text" class="form-control" placeholder="">
+          </div> form-group end.// -->
+          <!-- <div class="colform-group">
+              <label for="last_name">نام خانوادگی</label>
+                <input id="last_name" type="text" class="form-control" placeholder=" ">
+          </div> form-group end.// -->
+       <!-- </div> form-row end.// --> 
+      <!-- <div class="form-group">
+          <label for="phone">موبایل</label> -->
+          <!-- <input id="phone" type="email" class="form-control" placeholder="">
+          <small class="form-text text-muted"></small>
+      </div>  form-group end.// -->
+      <!-- <div class="form-group"> -->
+              <!-- <label for="user_type" class="form-check form-check-inline">
+            <input id="user_type" class="form-check-input" type="radio" name="gender" value="option1">
+            <span class="form-check-label"> کاربر عادی </span>
+          </label>
+          <label for="user_type" class="form-check form-check-inline">
+            <input id="user_type" class="form-check-input" type="radio" name="gender" value="option2">
+            <span class="form-check-label"> استارتاپ</span>
+          </label> --> 
+          <!-- <label for="user_type" class="form-check form-check-inline">
+              <input id="user_type" class="form-check-input" type="radio" name="gender" value="option2">
+              <span class="form-check-label"> خدمات دهنده</span>
+            </label>
+            <label for="user_type" class="form-check form-check-inline">
+              <input id="user_type" class="form-check-input" type="radio" name="gender" value="option2">
+              <span class="form-check-label"> معرف</span>
+            </label>
+      </div> form-group end.// -->
+       <!-- form-group end.// -->
+      <!-- </div> form-row.// -->
+      <!-- <div class="form-group">
+          <label for="password1" >پسورد</label>
+          <input id="password1"  class="form-control" type="password">
+      </div>
+      <div class="form-group">
+          <label for="password2">تکرار پسورد</label>
+          <input class="form-control" type="password">
+      </div>
+      form-group end.// -->  
+      <!-- <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> ثبت نام  </button>
+      </div> form-group//       --> 
+      <form action="/profile/signup/" , method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="send">
+      </form>
+      
+  <!-- </form> -->
+  </article> <!-- card-body end .// -->
+  <div class="border-top card-body text-center">اکانت داری? <a href="{% url 'login' %}">ورود</a></div>
+  </div> <!-- card.// -->
+  </div> <!-- col.//-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

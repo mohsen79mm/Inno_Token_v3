@@ -12,14 +12,15 @@ class CustomerUserAdmin(UserAdmin):
     list_filter = ('phone', 'website', 'user_type')
 
     fieldsets = (
-        ('اطلاعات اولیه', {'fields': ('phone', 'website', 'name_of_company','password')}),
+        ('اطلاعات اولیه', {'fields': ('phone','last_name', 'website', 'name_of_company','password')}),
         ('Permissions', {
          'fields': ('is_staff', 'is_active', 'user_permissions')}),
     )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('phone', 'website', 'name_of_company','user_type', 'password1', 'password2',)}
+            'fields': ('phone','last_name' ,  'website', 'name_of_company','user_type', 'password1', 'password2',)}
          ),
     )
 

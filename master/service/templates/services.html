@@ -14,7 +14,7 @@ services
 <ul>
     <li>
 
-        <a href="{% url 'user-list' service_id=e.id %}">{{ e.name }}</a>
+        <a href="{% url 'user_list' service_id=e.id %}">{{ e.name }}</a>
 
     </li>
 
@@ -22,12 +22,7 @@ services
 
     <li>price : {{e.price}}</li>
 
-    <form action="{% url 'add_cart' service_id=e.id %}?next={{request.path}}" , method='post'>
-        {% csrf_token %}
-        <input type="submit" class="btn btn-outline-dark" value="+">
-    </form>
 </ul>
-
 
 {% endfor %}
 

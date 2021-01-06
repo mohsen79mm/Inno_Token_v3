@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotAllowed, Http404, HttpResponse
@@ -97,8 +99,4 @@ def confirmation(request):
     
         return redirect(request.GET.get('next', 'show_cart'))
     return HttpResponseNotAllowed("shab bekheir ba anke gtfe budi sobh bekheir")
-
-
-
-
 
