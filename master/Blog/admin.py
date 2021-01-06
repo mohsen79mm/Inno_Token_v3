@@ -14,7 +14,7 @@ class PostAdmin(admin.ModelAdmin):
             obj.author = request.user.last_name
             return super(PostAdmin, self).save_model(request, obj, form, change)
     def delete_model(self, request, obj):
-        if obj.author==request.user.last_name:
+        if obj.author==request.user.last_name or "SuperBlog"==request.user.last_name :
             obj.delete()
         return None 
 

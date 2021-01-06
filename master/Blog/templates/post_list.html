@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <h2 itemprop="title" class="card-title">{{ post.title }}</h2>
                     <p itemprop="author" class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                    <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space}}</p>
+                    <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space|quot|zwnj}}</p>
                     <a href="{% url 'post_detail' post.url  %}" class="btn btn-primary">Read More &rarr;</a>
                 </div>
             </div>
