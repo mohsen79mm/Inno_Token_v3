@@ -1,0 +1,49 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+    
+    <link href="service_detail.css" rel="stylesheet" >
+
+    <body>
+        <main class="container">
+ 
+            <!-- Left Column / Headphones Image -->
+            <div class="left-column">
+              <!-- <img data-image="black" src="images/black.png" alt="">
+              <img data-image="blue" src="images/blue.png" alt=""> -->
+              <img data-image="red" class="active" src="https://designmodo.com/demo/product-page/images/red.png" alt="">
+            </div>
+           
+           
+            <!-- Right Column -->
+            <div class="right-column">
+           
+              <!-- Product Description -->
+              <div class="product-description">
+                <span>{دیتا کتگوری }</span>
+                <h1>{نام سرویس}</h1>
+                <p>{توضیحات}</p>
+              </div>
+           
+              
+              <div class="product-price">
+                <span>{دیتابیس}قیمت : </span>
+                <a href="#" class="cart-btn">اضافه به سبد خرید</a>
+              </div>
+            </div>
+          </main>
+          <script>$(document).ready(function() {
+ 
+            $('.color-choose input').on('click', function() {
+                var headphonesColor = $(this).attr('data-image');
+           
+                $('.active').removeClass('active');
+                $('.left-column img[data-image = ' + headphonesColor + ']').addClass('active');
+                $(this).addClass('active');
+            });
+           
+          });</script>
+    </body>
+</html>
