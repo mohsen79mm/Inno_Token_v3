@@ -3,8 +3,7 @@ from userprofile.models import *
 from .models import Subcategory, Category, Service
 from django.views.generic import ListView,DetailView
 from django.views import View
-
-
+# from django.db.models import Q
 
 class services(ListView):
     queryset=Service.objects.all()
@@ -20,7 +19,12 @@ class subcategorylist(ListView):
     template_name = 'subcategories.html'
     def get_queryset(self):
         return Subcategory.objects.filter(category__id=self.kwargs['cat_id'])
-
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        Se=Service.objects.filter(subcategory=None,category__id=self.kwargs['cat_id'])
+        # print()
+        data['Se'] = Se
+        return data
 
 
 

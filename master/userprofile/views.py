@@ -8,6 +8,7 @@ from .forms import LoginForm, CustomUserCreationForm,CaptchaTestForm
 from kavenegar import *
 from sendsms import api
 from .forms import SmsPasswordForm
+from django.contrib.auth.decorators import login_required
 
 API_KEY = '4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D'
 
@@ -146,8 +147,14 @@ class ChangePassword(View):
 def logout_view(request):
     logout(request)
     return redirect('home')
-
-
+@login_required(login_url='login')
+def User_profile(request):
+    phone=request.user.phone
+    queryset = cuser.objects.filter(phone=phone)
+    context={
+       queryset:queryset, 
+    }
+    return render(request,'User_profile.html',context)
 
 
         

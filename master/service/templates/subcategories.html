@@ -13,10 +13,30 @@ subcategory
 
 <ul>
     <li>
-
+        
         <a href="{% url 'service_list' sub_id=e.id %}">{{ e.name }}</a>
 
     </li>
+</ul>
+
+{% endfor %}
+
+
+{% for e in Se %}
+
+
+
+<ul>
+    <li>
+
+        <a href="{% url 'user_list' service_id=e.id %}">{{ e.name }}</a>
+
+    </li>
+
+    <li>describtion : {{e.description}}</li>
+
+    <li>price : {{e.price}}</li>
+
 </ul>
 
 {% endfor %}
