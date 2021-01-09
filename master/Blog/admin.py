@@ -7,7 +7,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith", "content__contains" )
     list_filter = ["author","status","post_cat"]
     list_display = ('title','author', 'status')
-    # site.disable_action('delete_selected')
+    site.disable_action('delete_selected')
     actions=[]
 
     readonly_fields=['author']
