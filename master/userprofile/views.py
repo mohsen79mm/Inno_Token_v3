@@ -4,7 +4,7 @@ from django.views.generic import ListView,DetailView
 from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, CustomUserCreationForm,CaptchaTestForm
+from .forms import LoginForm, CustomUserCreationForm,CaptchaTestForm, ChangePasswordForm, SmsPasswordForm
 from kavenegar import *
 from sendsms import api
 from .forms import SmsPasswordForm
@@ -108,18 +108,23 @@ class SmsPassword(View):
             if user_obj:
                 print(user_obj.first_name)
                 print(user_obj.password)
-                api = KavenegarAPI('4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D')
+                # api = KavenegarAPI('4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D')
                 user_pass = cuser.objects.make_random_password(length=5, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889") 
                 print(user_pass)
                 params = { 'sender' : '1000596446', 'receptor': phone, 'message' : user_pass}
                 print(user_obj.password)
-                api.sms_send(params)
+                # api.sms_send(params)
                 user_obj.set_password(user_pass)
                 user_obj.save()
                 context = {
                     'form': form
                 }
-                return redirect('changepass')
+                user = authenticate(request, phone=phone, password=user_pass)
+                if user:
+                    login(request, user)
+                    return redirect('changepass')
+                else:
+                    return redirect('smspass')
             else:
                 return HttpResponse("your phone is not login")
 
@@ -137,16 +142,16 @@ class ChangePassword(View):
             print(request.user)
             old_pass = request.POST['old_pass']
             print(old_pass)
-            user_obj = get_object_or_404(cuser, password=old_pass)
             new_pass = request.POST['new_pass']
-            user_obj.set_password(new_pass)
-            user_obj.save()
+            request.user.set_password(new_pass)
+            request.user.save()
 
             return redirect('login')
 
 def logout_view(request):
     logout(request)
     return redirect('home')
+
 @login_required(login_url='login')
 def User_profile(request):
     phone=request.user.phone

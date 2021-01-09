@@ -57,5 +57,5 @@ class cuser(AbstractUser) :
     description = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self) : 
-        return self.phone
+        return self.last_name
 

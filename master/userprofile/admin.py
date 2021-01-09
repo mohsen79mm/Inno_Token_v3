@@ -23,6 +23,7 @@ class CustomerUserAdmin(UserAdmin):
             'fields': ('phone','last_name' ,  'website', 'name_of_company','user_type', 'password1', 'password2',)}
          ),
     )
+    search_fields = ("phone",)
 
     ordering = ('phone',)
 admin.site.register(cuser, CustomerUserAdmin)
