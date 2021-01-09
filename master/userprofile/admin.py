@@ -8,7 +8,7 @@ class CustomerUserAdmin(UserAdmin):
     form = CustomUserChangeForm
 
     model = cuser
-    list_display = ('user_type', 'phone', 'website', 'is_staff', 'is_active')
+    list_display = ('user_type', 'phone', 'last_name', 'is_staff', 'is_active')
     list_filter = ('phone', 'website', 'user_type')
 
     fieldsets = (

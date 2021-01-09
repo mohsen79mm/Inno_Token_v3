@@ -10,7 +10,7 @@
         <p class=" text-muted">{{ object.author }} | {{ object.created_on }}</p>
         <p class="card-text ">{{ object.content |safe }}</p>
         {% for tag in object.tag.all %}
-        <a href="{% url 'tagged' tag|lower  %}" > {{tag|lower}} </a>
+        <a href="{% url 'tagged' tag.slug|lower  %}" > {{tag|lower}} </a>
         {% endfor %}
       </div>
     </div>
