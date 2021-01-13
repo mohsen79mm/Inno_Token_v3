@@ -7,18 +7,19 @@ subcategory
 
 {% block content %}
 
+
+<h3 style="direction: rtl; text-align: right;" >لیست زیر دسته ها</h3>
+
 {% for e in object_list %}
-
-
-
-<ul>
+<p style="direction: rtl; text-align: right;">*******************************************</p>
+<ul style="direction: rtl; text-align: right; list-style-type:none;" >
     <li>
-
-        <a href="{% url 'service_list' sub_id=e.id %}">{{ e.name }}</a>
-
+        <a href="{% url 'service_sub' sub_id=e.id %}">{{ e.name }}</a>
     </li>
 </ul>
+<p style="direction: rtl; text-align: right;">*******************************************</p>
 
 {% endfor %}
+
 
 {% endblock content %}

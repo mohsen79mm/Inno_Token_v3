@@ -1,5 +1,7 @@
 {% extends "base1.html" %} 
 {% load nbsp %}
+{% load jformat %}
+
 {% block content %}
 <style>
     body {
@@ -15,43 +17,53 @@
     .card {
         box-shadow: 0 16px 48px #E3E7EB;
     }
+
+    #vm{
+        text-align: center;
+    }
+    #xsd{
+        text-align: right;
+        direction: rtl;
+    }
+    #more{
+        text-align: center;
+        direction: rtl;
+    }
+    #xmk{
+        text-align: right;
+        direction: rtl;
+        font-size: 16px;
+    }
 </style>
 
 <header class="masthead">
-    <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                    <p class="text-light">We Love Django As much as you do..! &nbsp
-                    </p>
+                <div class="site-heading m-5 ">
+                    <h3 id='vm' class=" site-heading my-4 mt-3 text-white text-"  > به اینوبلاگ خوش آمدید </h3>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<div class="container" itemscope itemtype="http://schema.org/Blog">
+<div class="container" style="margin-top: 30px;" itemscope itemtype="http://schema.org/Blog">
     <div class="row">
 
        
         <!-- Blog Entries Column -->
         <!-- <div class="col-md-3 mt-3 left"> -->
             {% for post in object_list %}   
-            <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <img class="card-img-top" src="{{post.image.url}}" alt="Card image">
+            <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-6" >
+                <img class="card-img-top" style="margin-top: 20px;" src="{{post.image.url}}" alt="Card image">
                 <div class="card-body">
-                    <h2 itemprop="title" class="card-title">{{ post.title }}</h2>
-                    <p itemprop="author" class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                    <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space|quot|zwnj}}</p>
-                    <a href="{% url 'post_detail' post.url  %}" class="btn btn-primary">Read More &rarr;</a>
+                    <h6 id='xsd' itemprop="title" class="card-title">{{ post.title|striptags|nbsp2space|quot|zwnj}}</h6>
+                    <p id='xmk' itemprop="author" class="card-text text-muted h6"> {{ post.created_on|jformat:" %B | %d | %Y"}} </p>
+                    <!-- <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space|quot|zwnj}}</p> -->
+                    <a id="more" href="{% url 'post_detail' post.url  %}" class="btn btn-primary float-right"> بیشتر بخوانید</a>
                 </div>
             </div>
             {% endfor %}
-        </div>
-
-
-        
     </div>
 </div>
 {%endblock%}

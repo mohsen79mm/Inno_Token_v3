@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from userprofile.models import cuser
 # from restaurant.models import Food
 from service.models import Service
+from django_jalali.db import models as jmodels
+
 User = get_user_model()
 
 
@@ -35,7 +37,7 @@ class Factor(models.Model):
     user = models.ForeignKey(cuser,on_delete=models.CASCADE)        
     total_price = models.PositiveIntegerField(default=0)
     service = models.ForeignKey(Service,on_delete=models.CASCADE)
-    update_time = models.TimeField(auto_now=True) 
+    date = jmodels.jDateTimeField(auto_now=True)
     qty = models.PositiveIntegerField()
     
 

@@ -1,29 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}
 
-services
+سرویس ها 
 
 {% endblock title %}
 
 {% block content %}
 
+<h3 style="direction: rtl; text-align: right;">لیست سرویس ها : </h3>
 {% for e in object_list %}
-
-
-
-<ul>
-    <li>
-
-        <a href="{% url 'user_list' service_id=e.id %}">{{ e.name }}</a>
-
-    </li>
-
-    <li>describtion : {{e.description}}</li>
-
-    <li>price : {{e.price}}</li>
-
+<p style="direction: rtl; text-align: right;">--------------------------------------------------------------------</p>
+<ul style="direction: rtl; text-align: right; list-style-type:none;">
+    <li>*** {{ e.name }} ***</li>
+    <li>محصولی از {{e.cuser.last_name}}</li>
+    <li>قیمت  : {{e.price}} توکن</li>
+    <button style=" width: 190px ; height: 40px; border-radius: 5px;"><a href="{% url 'service_detail' pk=e.id %}">توضیحات بیشتر</a></button>
+    <form action="{% url 'add_cart' service_id=e.id %}?next={{request.path}}" , method='post'>
+        {% csrf_token %}
+        <input type="submit" class="btn btn-outline-dark" value="اضافه کردن به سبد خرید">
+    </form>
+    
 </ul>
-
+<p style="direction: rtl; text-align: right;">--------------------------------------------------------------------</p>
 {% endfor %}
 
 {% endblock content %}

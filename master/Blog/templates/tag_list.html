@@ -1,4 +1,5 @@
 {% extends "base1.html" %} 
+{% load nbsp %}
 {% block content %}
 <style>
     body {
@@ -21,10 +22,8 @@
     <div class="container">
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                    <p class="text-light">We Love Django As much as you do..! &nbsp
-                    </p>
+                <div class="site-heading m-5 ">
+                    <h3 id='vm' class=" site-heading my-4 mt-3 text-white text-"  > به اینوبلاگ خوش آمدید </h3>
                 </div>
             </div>
         </div>
@@ -35,23 +34,21 @@
        Tag : {{tag}}
     </p>
 </div>
+
 <div class="container">
     <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-3 mt-3 left">
-            {% for post in posts %}
-            <div class="card mb-4">
-                <img class="card-img-top" src="{{post.image.url}}" alt="Card image">
-                <div class="card-body">
-                    <h2 class="card-title">{{ post.title }}</h2>
-                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                    <p class="card-text">{{post.content| slice:":200" | safe }}</p>
-                    <a href="{% url 'post_detail' post.url  %}" class="btn btn-primary">Read More &rarr;</a>
-                </div>
+        {% for post in posts %}
+        <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            <img class="card-img-top" src="{{post.image.url}}" alt="Card image">
+            <div class="card-body">
+                <h6 id='xsd' itemprop="title" class="card-title">{{ post.title|striptags|nbsp2space|quot|zwnj}}</h6>
+                <p itemprop="author" class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                <!-- <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space|quot|zwnj}}</p> -->
+                <a id="more" href="{% url 'post_detail' post.url  %}" class="btn btn-primary float-right"> بیشتر بخوانید</a>
             </div>
-            {% endfor %}
         </div>
-        
+        {% endfor %}
     </div>
 </div>
 {%endblock%}

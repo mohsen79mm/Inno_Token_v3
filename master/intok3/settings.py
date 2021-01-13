@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'captcha',
+    'django_jalali',
 
 ]
 
@@ -118,7 +119,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
+
+# LANGUAGE_CODE = 'fa-ir'
+# import locale
+# locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")
 
 USE_I18N = True
 

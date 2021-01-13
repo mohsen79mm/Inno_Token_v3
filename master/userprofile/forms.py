@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
+from django.forms import IntegerField
 from .models import cuser
 from captcha.fields import CaptchaField
+from service.models import Service,Category,Subcategory
 class LoginForm(forms.Form):
     phone = forms.CharField(max_length=11, required=True)
     password = forms.CharField(widget=forms.PasswordInput)
@@ -28,3 +30,21 @@ class CustomUserChangeForm(UserChangeForm):
 class CaptchaTestForm(forms.Form):
         
     captcha = CaptchaField()
+
+
+
+class Addservice(forms.ModelForm): 
+
+    
+    category = forms.ModelChoiceField(queryset=Category.objects.all())
+    # subcategory = forms.ModelChoiceField(queryset=Subcategory.objects.all())
+    # specify the name of model to use 
+    class Meta:
+        model = Service
+        fields = ['name', 'description','picture','price','category']
+    # def save(self,commit=True ,*args):
+    #     print('>>>>>>>><<<<<<<<<<<',self.request.user)
+    #     instance = super().save(commit=False)
+    #     # instance.cuser = request
+
+    # cuser

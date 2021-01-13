@@ -7,12 +7,6 @@
 {% block content %}
     
 
-
-
-
-
-
-
 <div class="container bootstrap snippets bootdey " style="margin-bottom: 100px; margin-left: 250px;">
     <div class="col-md-9 col-sm-8 content">
         <div class="row">
@@ -39,27 +33,22 @@
                             <tr>
                                 <th>تصویر کالا</th>
                                 <th>نام سرویس</th>
-                                <th>تعداد</th>
                                 <th>قیمت واحد</th>
-                                <th>قیمت کل</th>
+                                <th>ارائه دهنده</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                                 {% for item in cart_item %}
                                 <tr>
-                                    <td><img src="https://via.placeholder.com/400x200/FFB6C1/000000" class="img-cart"></td>
+                                    <td><img src="{{item.service.picture.url}}" class="img-cart"></td>
                                     <td><strong>{{item.service.name}}</strong></td>
+                                    <td>{{item.service.price}}</td>
+                                    <td>{{item.service.cuser.last_name}} {{item.service.cuser.name_of_company}}</td>
                                     <td>
-                                    <form class="form-inline">
-                                        <input class="form-control" type="text" value="1">
-                                        <button rel="tooltip" class="btn btn-default"><i class="fa fa-pencil"></i>-</button>
-                                        <a href="#" class="btn btn-primary"><i class="fa fa-trash-o">+</i></a>
-                                        <button type="button" class="btn btn-danger">حذف</button>
-
-                                    </form>
+                                        <button type="button" class="btn btn-danger"><a href="{% url 'delete_from_cart'  item.service.id %}" >حذف</a>
+                                        </button>
                                     </td>
-                                    <td>{{item.service.price}}</td>
-                                    <td>{{item.service.price}}</td>
                                 </tr>
                                 {% endfor %}
                                 
@@ -68,22 +57,20 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-right">قیمت کل محصولات</td>
-                                    <td>86.00</td>
+                                    <td>{{tprice}}</td>
                                 </tr>
-                                <tr>
-                                    <td colspan="4" class="text-right">مالیات و ارزش افروده</td>
-                                    <td>2.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="text-right"><strong>جمع کل</strong></td>
-                                    <td>88.00</td>
-                                </tr>
+                            
                             </tbody>
                         </table>
                     </div>
                 </div>
                 </div>
-                <a href="#" class="btn btn-success"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;ادامه فرایند خرید</a>
+            
+                <form action="{% url 'confirmation' %}" , method='post'>
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-dark" value="ادامه فرایند خرید">
+                </form>
+
             </div>
         </div>
     </div>

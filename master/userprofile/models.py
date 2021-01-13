@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from django_jalali.db import models as jmodels
 import os
 
 def get_upload_path(instance,filename):
@@ -55,7 +56,8 @@ class cuser(AbstractUser) :
     website = models.CharField(max_length=30, blank=True, null=True)
     linkedin = models.CharField(max_length=20, blank=True, null=True)
     description = models.TextField(max_length=500, null=True, blank=True)
+    date_joined = jmodels.jDateTimeField(auto_now_add=True)
 
     def __str__(self) : 
-        return self.phone
+        return self.last_name
 

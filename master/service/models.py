@@ -32,8 +32,13 @@ class Service(models.Model) :
     category = models.ForeignKey(Category , on_delete = models.CASCADE,related_name='category')
     cuser = models.ForeignKey(cuser,related_name='use',on_delete=models.CASCADE)
     description = models.CharField(max_length = 250)
-    picture = models.ImageField(upload_to='logo/', blank = True , null = True)
+    picture = models.ImageField(upload_to='logo/',default = 'service_defult.png')
     price = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        if self.subcategory != None and self.category.name != self.subcategory.category.name:
+            raise ValueError("You have selected two categories")
+        return super().save(*args, **kwargs)
 
     def __str__(self) :
         return f"{self.name}-{self.cuser}"

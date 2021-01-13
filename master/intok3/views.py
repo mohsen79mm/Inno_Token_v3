@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render 
 from service import urls
 
 def index(request):
