@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from cart.models import Factor 
 from service.models import Service
 from django.core.files.storage import FileSystemStorage
-from service.models import Category
+from service.models import Category , Subcategory
 
 API_KEY = '4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D'
 
@@ -186,9 +186,13 @@ def User_profile(request):
 
 class add_service(View):
     def get(self, request):
+        cats = Category.objects.all()
+
         form = Addservice()
+        # print('>>>>>>>>>>>>>>>>>',form['subcategory'],'<<<<<<<<<<<<<<<<<<<<<<<<')
         context = {
             'form': form,
+            'cat':cats,
             
         }
 
@@ -200,13 +204,14 @@ class add_service(View):
         # print(request.user)
 
         if form.is_valid():
+            print('sub : ',request.POST.get('subs'))
             # tozih code = record service sakhte mishe bar in asas ke cuser = request.user  hamon shakshi ke 
             # dare to profile service ezafe mikone 
             # field picture ke to model service tarif shode bayad intory tarif beshe dast nazanid ke 
             # amper michasbonam XD  baghiasham moshakhase  XD  ba tashakor  haj mohsen
             Service.objects.create(cuser=request.user,name=request.POST.get('name'),
-            description=request.POST.get('description'),price=request.POST.get('price'),subcategory=None,
-            category=Category.objects.get(id=request.POST.get('category'),),picture=FileSystemStorage().save(
+            description=request.POST.get('description'),price=request.POST.get('price'),subcategory=Subcategory.objects.get(id=request.POST.get('subs')),
+            category=Category.objects.get(id=request.POST.get('category')),picture=FileSystemStorage().save(
                     f"{Service.picture.field.upload_to}/{request.FILES['picture'].name}", request.FILES['picture']))
             
             # print(instance)
@@ -214,3 +219,9 @@ class add_service(View):
             
         else:
             return redirect('home')
+
+
+def load_sub(request):
+    programming_id = request.GET.get('programming')
+    courses = Subcategory.objects.filter(category_id=programming_id).order_by('name')
+    return render(request, 'subs.html', {'subs': courses})            

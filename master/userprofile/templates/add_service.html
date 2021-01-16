@@ -1,6 +1,44 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<form action="{% url 'add_service_client' %}" method="POST" enctype="multipart/form-data">
+
+
+<form action="{% url 'add_service_client' %}" method="POST" enctype="multipart/form-data" id="indexForm" data-courses-url="{% url 'category_id' %}">
     {% csrf_token %}
     {{form.as_p}}
+    <br>
+    <label>Category</label>
+        <select name="category" id="category" class="form-control">
+            <option value="">---select category---</option>
+            {% for i in cat %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Subcategory</label>
+      <select name="subs" id="subs" class="form-control">
+
+        </select>
+        <br>
     <input type="submit" value="Submit" />
 </form>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#category").change(function () {
+      var url = $("#indexForm").attr("data-courses-url");  // get the url of the `load_courses` view
+      var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+        data: {
+          'programming': programmingId       // add the programming id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_courses` view function
+          $("#subs").html(data);  // replace the contents of the course input with the data that came from the server
+        }
+      });
+
+    });
+  </script>

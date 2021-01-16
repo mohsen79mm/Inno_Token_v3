@@ -35,16 +35,7 @@ class CaptchaTestForm(forms.Form):
 
 class Addservice(forms.ModelForm): 
 
-    
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
-    # subcategory = forms.ModelChoiceField(queryset=Subcategory.objects.all())
-    # specify the name of model to use 
     class Meta:
         model = Service
-        fields = ['name', 'description','picture','price','category']
-    # def save(self,commit=True ,*args):
-    #     print('>>>>>>>><<<<<<<<<<<',self.request.user)
-    #     instance = super().save(commit=False)
-    #     # instance.cuser = request
-
-    # cuser
+        fields = ['name', 'description','picture','price']
+    
