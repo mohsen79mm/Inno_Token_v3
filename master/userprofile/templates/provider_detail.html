@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-اینو توکن
+خدمت دهنده 
 {% endblock title %}
 
 {% block content %}
-    <h1>صفحه اصلی</h1>
-    <p>{{object.name_of_company}}</p>
-    <p>{{object.phone}}</p>
-
+    <h1 style="direction: rtl; text-align: center; margin: 20px; margin-top: 80px;">خدمت دهنده {{object.name_of_company}}</h1>
     {% if object.logo  %}
-    <img src="{{object.logo.url}}">
+    <img style="direction: rtl; text-align: center; margin: 20px; " src="{{ object.logo.url }}"> 
     {% endif %}
+    <p style="direction: rtl; text-align: center; margin: 20px;"> اطلاعات تماس : {{object.phone}}</p>
+    <p style="direction: rtl; text-align: center; margin: 20px; "> درباره این خدمت دهنده : {{object.content}} </p>
+    <p style="direction: rtl; text-align: center; margin: 20px; margin-bottom: 75px;"> وب سایت : {{object.website}} </p>
+
+
+    
+  
     
 {% endblock content %}
 

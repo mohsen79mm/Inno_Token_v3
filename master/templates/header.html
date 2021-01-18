@@ -31,10 +31,12 @@
                 </li>
                 
                 <a class="navbar-brand" style="margin-right: 25px;"></a>
-                <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="نام سرویس" aria-label="Search">
+
+                <form class="form-inline" action="/service/search" method="GET">
+                <input class="form-control mr-sm-2" name='ser' type="search" placeholder="نام سرویس" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
                 </form>
+
                 <button type="button" class="btn btn-warning" style="margin-right: 70px; margin-left:25px;">دانلود کیف توکن</button>
                 <a  href="{% url 'show_cart' %}">
                 <button type="button" class="btn btn-danger">سبد خرید</button>

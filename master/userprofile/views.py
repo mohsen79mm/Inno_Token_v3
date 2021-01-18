@@ -1,36 +1,37 @@
 from django.shortcuts import render, get_object_or_404, redirect,Http404
-from .models import cuser
+from .models import cuser , File
 from django.views.generic import ListView,DetailView
 from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, CustomUserCreationForm,CaptchaTestForm, ChangePasswordForm, SmsPasswordForm ,Addservice
+from .forms import LoginForm, CustomUserCreationForm, CaptchaTestForm, ChangePasswordForm, SmsPasswordForm ,Addservice ,CompleteProfileForm , StartupProfileForm, ProviderProfileForm, AcceleratorProfileForm, CompleteProfileForm, CaptchaTestForm, ChangePasswordForm
 from kavenegar import *
 from sendsms import api
-from .forms import SmsPasswordForm
 from django.contrib.auth.decorators import login_required
 from cart.models import Factor 
 from service.models import Service
 from django.core.files.storage import FileSystemStorage
 from service.models import Category , Subcategory
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 API_KEY = '4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D'
 
 class StartupList(ListView):
     
-     queryset = cuser.objects.filter(user_type="S")
+     queryset = cuser.objects.filter(user_type="استارتاپ")
      template_name= 'startup_list.html'
 
 
 class ProviderList(ListView):
     
-     queryset = cuser.objects.filter(user_type="P")
+     queryset = cuser.objects.filter(user_type="خدمت دهنده")
      template_name= 'provider_list.html'
 
 
 class AcceleratorList(ListView):
     
-     queryset = cuser.objects.filter(user_type="A")
+     queryset = cuser.objects.filter(user_type="مرکز معرفی")
      template_name= 'accelerator_list.html'         
     
 class StartupDetail(DetailView):
@@ -81,19 +82,20 @@ class SignUp(View):
             'form': form,
             'login' : 'لاگین'
         }
-
         return render(request, 'signup.html', context)
 
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
 
-        context = {
-            'form': form
-        }
-        return render(request, 'signup.html', context)
+            phone = request.POST['phone']
+            password = request.POST['password']
+            user = authenticate(request, phone=phone, password=password)
+            login(request, user)
+
+            return redirect('complete_profile')
+        return redirect('signup')
 
 class SmsPassword(View):
     def get(self, request):
@@ -164,14 +166,14 @@ def User_profile(request):
     email = user.email
     address = user.address 
     fact = Factor.objects.filter(user=user).order_by('-date')
-    if user.user_type == 'B' : 
+    if user.user_type == 'کاربر' : 
         user_type = "کاربر"
-    if user.user_type == 'S' : 
+    if user.user_type == 'استارتاپ' : 
         user_type = "استارتاپ"
-    if user.user_type == 'P' : 
-        user_type = "خدمات دهنده"
-    if user.user_type == 'A' : 
-        user_type = "مراکز معرفی"
+    if user.user_type == 'خدمت دهنده' : 
+        user_type = "خدمت دهنده"
+    if user.user_type == 'مرکز معرفی' : 
+        user_type = "مرکز معرفی"
     context={
       'type' : user_type , 
       'user' : user , 
@@ -184,18 +186,16 @@ def User_profile(request):
     return render(request,'User_profile.html',context)
 
 
-class add_service(View):
+class add_service(LoginRequiredMixin,View):
+    login_url = 'login'
+
     def get(self, request):
         cats = Category.objects.all()
-
         form = Addservice()
-        # print('>>>>>>>>>>>>>>>>>',form['subcategory'],'<<<<<<<<<<<<<<<<<<<<<<<<')
         context = {
             'form': form,
             'cat':cats,
-            
         }
-
         return render(request, 'add_service.html', context)
 
     def post(self, request):
@@ -213,15 +213,56 @@ class add_service(View):
             description=request.POST.get('description'),price=request.POST.get('price'),subcategory=Subcategory.objects.get(id=request.POST.get('subs')),
             category=Category.objects.get(id=request.POST.get('category')),picture=FileSystemStorage().save(
                     f"{Service.picture.field.upload_to}/{request.FILES['picture'].name}", request.FILES['picture']))
-            
-            # print(instance)
+
             return redirect('user_profile') 
             
         else:
             return redirect('home')
 
-
 def load_sub(request):
     programming_id = request.GET.get('programming')
     courses = Subcategory.objects.filter(category_id=programming_id).order_by('name')
     return render(request, 'subs.html', {'subs': courses})            
+
+class CompleteProfile(LoginRequiredMixin,View):
+    login_url = 'login'
+    def get(self, request):
+        if request.user.user_type == "خدمت دهنده":
+            form = ProviderProfileForm(instance=request.user)
+        elif request.user.user_type == "استارتاپ":
+            form = StartupProfileForm(instance=request.user)
+        elif request.user.user_type == "مرکز معرفی":
+            form = AcceleratorProfileForm(instance=request.user)
+        else:
+            form = CompleteProfileForm(instance=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'complete_profile.html', context)
+
+    def post(self, request):
+        if request.user.user_type == "خدمت دهنده":
+            form = ProviderProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid() : 
+                File.objects.create(user=request.user, file1=request.FILES['file1'], file2=request.FILES['file2'])
+                form.save()
+
+        elif request.user.user_type == "استارتاپ":
+            form = StartupProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid() : 
+                File.objects.create(user=request.user, file1=request.FILES['file1'])
+                form.save()
+
+        elif request.user.user_type == "مرکز معرفی":
+            form = AcceleratorProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid() : 
+                File.objects.create(user=request.user, file1=request.FILES['file1'], file2=request.FILES['file2'], file3=request.FILES['file3'])
+                form.save()
+
+        else:
+            form = CompleteProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid() : 
+                form.save()
+
+        return redirect('/')
+

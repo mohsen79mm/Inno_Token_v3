@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import cuser
+from .models import cuser ,File
 
 class CustomerUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
@@ -12,7 +12,7 @@ class CustomerUserAdmin(UserAdmin):
     list_filter = ('phone', 'website', 'user_type')
 
     fieldsets = (
-        ('اطلاعات اولیه', {'fields': ('phone','last_name', 'website', 'name_of_company','password')}),
+        ('اطلاعات اولیه', {'fields': ('phone','last_name','user_type',  'website', 'name_of_company','password')}),
         ('Permissions', {
          'fields': ('is_staff', 'is_active', 'user_permissions')}),
     )
@@ -27,3 +27,4 @@ class CustomerUserAdmin(UserAdmin):
 
     ordering = ('phone',)
 admin.site.register(cuser, CustomerUserAdmin)
+admin.site.register(File)

@@ -50,3 +50,15 @@ class service_detail(DetailView) :
     model=Service
     template_name = 'service_detail.html'
     
+
+
+def search(request): 
+    if request.method == "GET":
+        serv = Service.objects.all();
+        if request.GET.get('ser') :
+            serv = serv.filter(
+                name__contains=request.GET.get('ser'))
+        context = {
+            'serv' : serv
+        }
+    return render(request, "service_search.html", context)

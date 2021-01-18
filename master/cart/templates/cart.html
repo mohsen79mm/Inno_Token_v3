@@ -41,7 +41,12 @@
                             <tbody>
                                 {% for item in cart_item %}
                                 <tr>
+                                    {% if item.service.picture %}
                                     <td><img src="{{item.service.picture.url}}" class="img-cart"></td>
+                                    {% else %}
+                                    <td><img src="#" class="img-cart"></td>
+                                    {% endif %}
+
                                     <td><strong>{{item.service.name}}</strong></td>
                                     <td>{{item.service.price}}</td>
                                     <td>{{item.service.cuser.last_name}} {{item.service.cuser.name_of_company}}</td>

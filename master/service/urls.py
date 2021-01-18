@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import categorylist,subcategorylist,servicelist_cat,servicelist_sub,services , service_detail
+from .views import categorylist,subcategorylist,servicelist_cat,servicelist_sub,services , service_detail , search
 urlpatterns = [
 
     path('show_cats/',categorylist.as_view(),name='category_list'),
@@ -12,5 +12,7 @@ urlpatterns = [
     path('service_detail/<int:pk>',service_detail.as_view(), name='service_detail'),
 
     path('services/',services.as_view(), name='services'), #All Services Without Any Filter
+
+    path('search/', search , name ='search') ,
 
 ]
