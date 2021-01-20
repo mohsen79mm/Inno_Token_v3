@@ -1,0 +1,54 @@
+{% extends "base1.html" %} 
+{% load nbsp %}
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading m-5 ">
+                    <h3 id='vm' class=" site-heading my-4 mt-3 text-white text-"  > به اینوبلاگ خوش آمدید </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div>
+    <p>
+       Tag : {{tag}}
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        {% for post in posts %}
+        <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            <img class="card-img-top" src="{{post.image.url}}" alt="Card image">
+            <div class="card-body">
+                <h6 id='xsd' itemprop="title" class="card-title">{{ post.title|striptags|nbsp2space|quot|zwnj}}</h6>
+                <p itemprop="author" class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                <!-- <p itemprop="content" class="card-text">{{post.content|striptags|truncatechars:50|nbsp2space|quot|zwnj}}</p> -->
+                <a id="more" href="{% url 'post_detail' post.url  %}" class="btn btn-primary float-right"> بیشتر بخوانید</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%endblock%}

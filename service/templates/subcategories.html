@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+
+subcategory
+
+{% endblock title %}
+
+{% block content %}
+
+
+<h1 dir="rtl" style="text-align: center; margin: 25px;"> دسته ها </h1>
+<div class="container">
+    <div class="row">
+        {% for e in object_list %}
+            <div class="col-md-3 text-center">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div class="product-imitation">
+                            [ InnToken ]
+                        </div>
+                                <div class="product-desc">
+                                    <p class="">{{ e.name }} </p>
+                                    <div class="small m-t-xs" style="margin-bottom: 50px;">
+                                        <div style="margin-bottom: 20px;" >
+                                        </div>
+                                        <a href="{% url 'service_sub' sub_id=e.id %}" class="btn btn-xs btn-outline btn-primary " style="margin-right: 40px ;"> مشاهده این دسته <i class="fa fa-long-arrow-left"> </i> 
+                                        </a>
+                                    </div>
+                                </div>
+                    </div>    
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
