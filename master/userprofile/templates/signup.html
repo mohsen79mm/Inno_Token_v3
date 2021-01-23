@@ -1,19 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}  
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">signup</button>
-  </form>
+
+<div class="container">
+    
+  <hr>
+  
+  
+  <div class="row justify-content-center">
+  <div class="col-md-6">
+  <div class="card">
+  <header class="card-header">
+      <a href="" class="float-right btn btn-outline-primary mt-1">ورود</a>
+      <h4 class="card-title mt-2">ثبت نام</h4>
+  </header>
+  <article class="card-body">
+    
+      <form action="/profile/signup/" , method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="send">
+      </form>
+      
+  <!-- </form> -->
+  </article> <!-- card-body end .// -->
+  <div class="border-top card-body text-center">اکانت داری? <a href="{% url 'login' %}">ورود</a></div>
+  </div> <!-- card.// -->
+  </div> <!-- col.//-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

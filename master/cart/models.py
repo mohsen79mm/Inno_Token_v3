@@ -1,9 +1,45 @@
 from django.db import models
-from service.models import Service
+from django.contrib.auth import get_user_model
 from userprofile.models import cuser
+# from restaurant.models import Food
+from service.models import Service
+from django_jalali.db import models as jmodels
+
+User = get_user_model()
+
 
 class Cart(models.Model):
-    Service=models.ManyToManyField(Service)
-    cuser=models.ForeignKey(cuser,on_delete=models.CASCADE)
-    Quantity=models.IntegerField()
-    is_final=models.BooleanField(default=False)
+    service = models.ManyToManyField(Service, through='CartItems')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    last_update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"کاربر : {self.user.phone}"
+
+
+class CartItems(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    qty = models.IntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['cart', 'service'], name='cart item constraint')
+        ]
+    
+    def __str__(self):
+        return f'سرویس: {self.service} سبد خرید:{self.cart}'
+
+
+
+class Factor(models.Model):  
+    user = models.ForeignKey(cuser,on_delete=models.CASCADE)        
+    total_price = models.PositiveIntegerField(default=0)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE)
+    date = jmodels.jDateTimeField(auto_now=True)
+    qty = models.PositiveIntegerField()
+    
+
+    def __str__(self):
+        return f'کاربر : {self.user} | سرویس : {self.service}  | تعداد : {self.qty}  | مبلغ کل : {self.total_price}'

@@ -7,18 +7,51 @@ subcategory
 
 {% block content %}
 
-{% for e in object_list %}
 
 
 
-<ul>
-    <li>
+<!------start-feature-pic-------->
+<section class="bg" >
+    <div class="container">
+       
+        <div class="row">
+            <!------start-for-python here { for }-------->
+            {% for e in object_list %}
+            <div class="clo-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                    <div class="box-pic">
+                        {% if e.picture  %}
+                        <img src="{{e.picture.url}}" alt="" style="max-width: 200px; max-height: 150px;">
+                        {% endif %}
+                    </div>
+                    <h6 class="text-dark my-3 ">{{ e.name }}</h6>
+                    <!-- <p class="text-muted "> {توضیحات از دیتابیس} طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد . {توضیحات از دیتابیس}</p> -->
+                    <hr>
+                    <div  >
+                        
+                        <!-- <p class="text-muted " style="margin: 10px;">تاریخ : 98/85dsad</p> -->
+                        <a style="text-align: center;" href="{% url 'service_sub' sub_id=e.id %}"><button style="margin-right: 5%; text-align: center;" class="btn btn-light btn-outline-primary ">مشاهده</button></a>
+                    </div>
+                </div>
+            </div>
 
-        <a href="{% url 'service-list' sub_id=e.id %}">{{ e.name }}</a>
+            {% endfor %}
+            <!------finish-{ for }-------->
+            
+        </div>
+    </div>
+</section>
 
-    </li>
-</ul>
 
-{% endfor %}
+
+
+
+
+
+
+
+
+
+
 
 {% endblock content %}

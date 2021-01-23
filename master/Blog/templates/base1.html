@@ -1,68 +1,125 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html dir="rtl">
 
     <head>
-        <title>Django Central</title>
+        <link rel="canonical" href="{{ CANONICAL_PATH }}" />
+        <meta name=”robots” content=”noindex, nofollow” />
+
+        <title> اینوبلاگ </title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" href="{% static 'css/bootstrap-rtl.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/vazir.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Blog-post-detail.css' %}">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous" />
     </head>
 
     <body>
-        <style>
-            body {
-            font-family: "Roboto", sans-serif;
-            font-size: 17px;
-            background-color: #fdfdfd;
-        }
-        .shadow {
-            box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
-        }
-        .btn-danger {
-            color: #fff;
-            background-color: #f00000;
-            border-color: #dc281e;
-        }
-        .masthead {
-            background: #3398E1;
-            height: auto;
-            padding-bottom: 15px;
-            box-shadow: 0 16px 48px #E3E7EB;
-            padding-top: 10px;
-        }
-    </style>
+        
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'Blog' %}">Django central</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <div class="container-fluid" dir="rtl"  >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">اینوتوکن</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">About</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
-                        </li>
-                    </ul>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav col">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'home' %}">صفحه اصلی <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        اینو توکن
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'provider_list' %}">خدمات دهندگان</a>
+                        <a class="dropdown-item" href="{% url 'accelerator_list' %}">معرف ها</a>
+                        <a class="dropdown-item" href="{% url 'startup_list' %}">استارتاپ ها</a>
+                      </div>
+                    </li>
+    
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'Blog' %}">اینو بلاگ</a>
+                    </li>
+    
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'category_list' %}">خدمات</a>
+                    </li>
+                    
+                    <a class="navbar-brand" style="margin-right: 25px;"></a>
+    
+                    <form class="form-inline" action="/service/search" method="GET">
+                    <input class="form-control mr-sm-2" name='ser' type="search" placeholder="نام سرویس" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
+                    </form>
+    
+                    <button type="button" class="btn btn-warning" style="margin-right: 70px; margin-left:25px;">دانلود کیف توکن</button>
+                    <a  href="{% url 'show_cart' %}">
+                    <button type="button" class="btn btn-danger">سبد خرید</button>
+                    </a>  
+                    <a  href="{% url 'login' %}">
+                      <button type="button" class="btn btn-danger">ورود</button>
+                    </a>
+                    <a  href="{% url 'signup' %}">
+                      <button type="button" class="btn btn-danger">ثبت نام</button>
+                    </a>  
+                    
+                  </ul>
                 </div>
+              </nav>
             </div>
-        </nav>
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
         <!-- Footer -->
-        <footer class="py-3 bg-grey">
-            <p class="m-0 text-dark text-center ">Copyright &copy; Django Central</p>
-        </footer>
+        <footer class="bg-dark footer-section">
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <h5 class="text-light" style="margin-block-start: 40px;">ایمیل</h5>
+                    <p class="text-white paragraph-lg font-secondary">info@inntoken.ir
+        
+                    </p>
+                  </div>
+                  <div class="col-md-4" >
+                    <h5 class="text-light" style="margin-block-start: 40px;">تماس با ما
+                    </h5>
+                    <p class="text-white paragraph-lg font-secondary">021-28421466
+                    </p>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="text-light" style="margin-block-start: 40px;">آدرس</h5>
+                    <p class="text-white paragraph-lg font-secondary">بلوار کشاورز، ابتدای خیابان شانزده آذر
+                        ساختمان کمال الدین بهزاد، طبقه دهم، اتاق 1006</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="border-top text-center border-dark py-5">
+              <p class="mb-0 text-light">Copyright ©<script>
+                  var CurrentYear = new Date().getFullYear()
+                  document.write(CurrentYear)
+                </script>  <a href="#">inntoken | powerd by innohouse</a></p>
+            </div>
+          </footer>
+
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/owl.carousel.min' %}"></script>
+        <script src="{% static 'js/js.js' %}"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+
     </body>
 </html>

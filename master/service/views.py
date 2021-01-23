@@ -1,41 +1,64 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 , redirect
 from userprofile.models import *
 from .models import Subcategory, Category, Service
 from django.views.generic import ListView,DetailView
 from django.views import View
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+
+
+class services(ListView):
+    model = Service
+    template_name = 'services_main.html'
+
 
 class categorylist(ListView):
     model = Category
     template_name = 'categories.html'
 
-class subcategorylist(ListView):
-    # model = Subcategory
-    template_name = 'subcategories.html'
-    def get_queryset(self):
-        return Subcategory.objects.filter(category__id=self.kwargs['cat_id'])
+#final changes
+
+def subcategorylist(request , cat_id) : 
+
+    sub = Subcategory.objects.filter(category__id=cat_id)
+
+    if not sub : 
+        print(HttpResponseRedirect(reverse('service_cat',kwargs={'cat_id' : cat_id })))
+        return HttpResponseRedirect(reverse('service_cat',kwargs={'cat_id' : cat_id }))
+    else : 
+        context = {
+            'object_list' : sub ,
+        }
+        return render(request, 'subcategories.html' , context)
+
+        
 
 
-
-
-class servicelist(ListView):
+class servicelist_sub(ListView):
     template_name = 'services.html'
-
     def get_queryset(self):
-
         return Service.objects.filter(subcategory__id=self.kwargs['sub_id'])
 
 
-class userlist(View):
-    def get(self,request,service_id):
-        service_obj = get_object_or_404(Service, id=service_id)
-        username=service_obj.cuser
-        # users = service_obj.use.all()
-        user = cuser.objects.filter(username__contains=username)
-        # print(users)
-        # print(useraa)
+class servicelist_cat(ListView):
+    template_name = 'services.html'
+    def get_queryset(self):
+        return Service.objects.filter(category__id=self.kwargs['cat_id'])
+
+
+class service_detail(DetailView) : 
+    model=Service
+    template_name = 'service_detail.html'
+    
+
+
+def search(request): 
+    if request.method == "GET":
+        serv = Service.objects.all();
+        if request.GET.get('ser') :
+            serv = serv.filter(
+                name__contains=request.GET.get('ser'))
         context = {
-                'user':user
-                }
-        return render(request, 'user.html', context)
-
-
+            'serv' : serv
+        }
+    return render(request, "service_search.html", context)

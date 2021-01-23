@@ -26,9 +26,7 @@ SECRET_KEY = '4^)_sefycwy98!vxskfx1=v0ajnps3lqme9!8c@y_j*&m8z(55'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inntoken.ir',
-                'first-django-service-innotoken.fandogh.cloud',
-                '127.0.0.1',
+ALLOWED_HOSTS = [
                 ]
 
 
@@ -49,6 +47,9 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
+    'captcha',
+    'django_jalali',
+
 ]
 
 MIDDLEWARE = [
@@ -118,7 +119,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
+
+# LANGUAGE_CODE = 'fa-ir'
+# import locale
+# locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")
 
 USE_I18N = True
 
@@ -151,3 +156,12 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
     },
 }
+
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Tehran'

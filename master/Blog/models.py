@@ -5,6 +5,8 @@ import os
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 from ckeditor_uploader.fields import RichTextUploadingField
+from django_jalali.db import models as jmodels
+
 
 STATUS = (
     (0,"Draft"),
@@ -27,8 +29,8 @@ class Post(models.Model):
     post_cat = models.ManyToManyField(post_category )
     tag = TaggableManager()
     author = models.CharField(max_length=100)
-    created_on = models.DateTimeField(auto_now_add=True)    
-    updated_on = models.DateTimeField(auto_now= True)
+    created_on = jmodels.jDateTimeField(auto_now_add=True)    
+    updated_on = jmodels.jDateTimeField(auto_now= True)
     status = models.IntegerField(choices=STATUS, default=0)
     url = models.CharField(_("URL"), max_length=150, unique=True)    
     class Meta:

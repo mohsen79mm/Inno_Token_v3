@@ -31,7 +31,8 @@ class TagBase(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.name}', allow_unicode=True)
+            slug=self.name.replace(' ', '_')   
+            self.slug = slugify(f'{slug}', allow_unicode=True)
         return super().save(*args, **kwargs)
 
 

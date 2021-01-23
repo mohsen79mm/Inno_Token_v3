@@ -1,17 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render 
+from service import urls
 
 def index(request):
-    category = { 
+        category = { 
         "startup_list":"استارتاپ",
         "provider_list":"خدمت دهنده",
         "accelerator_list":"مراکز معرفی",
-    
-    }
-
-    context = {
-        'category':category,
-        'CANONICAL_PATH': request.build_absolute_uri(request.path),
-
-     }
-    return render(request,'index.html',context)
-
+        "services":"لیست سرویس ها ",
+        "home":'خانه',
+        "show_cart":'سبد خرید',
+        "login":'ورود',
+        "signup":'ثبت نام'
+        }
+        context = {
+        'category':category
+        }
+        return render(request,'index.html',context)

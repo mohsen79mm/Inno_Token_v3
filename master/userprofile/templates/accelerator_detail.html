@@ -1,16 +1,93 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
-اینو توکن
+مرکز معرفی
 {% endblock title %}
 
 {% block content %}
-    <h1>صفحه اصلی</h1>
-    <p>{{object.name_of_company}}</p>
-    <p>{{object.phone}}</p>
 
-    {% if object.logo  %}
-    <img src="{{object.logo.url}}">
-    {% endif %}
+
+
+<div class="container box mt-5">
+    <div class="row">
+
+        <div class="col-8">
+
+            <div style="padding: 2%;">
+                <h3 class="text-dark my-3 " style="text-align: right; ">مرکز معرفی {{object.name_of_company}}</h3>
+
+
+            </div>
+            <div style="padding: 2%;">
+                <p class="text-muted "> درباره این مرکز معرفی : {{object.content}} </p>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="col-4">
+
+
+            <div class="box">
+                {% if object.logo  %}
+
+                <img class="img-fluid text-center" src="{{ object.logo.url }}">
+                {% endif %}
+            </div>
+
+
+            <div class="mt-2 pt-3">
+
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-internet-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.website}}</p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-email-100.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.email}}
+                        {{object.phone}}
+                    </p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-address-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.address}}</p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-linkedin-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.linkedin}}</p>
+
+                   
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+  
     
 {% endblock content %}
+
