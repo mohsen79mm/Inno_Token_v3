@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+
+ دسته ها
+
+{% endblock title %}
+
+{% block content %}
+
+
+<!------start-feature-pic-------->
+<section class="bg" >
+    <div class="container">
+       
+        <div class="row">
+            <!------start-for-python here { for }-------->
+            {% for obj in object_list %}
+                <div class="clo-xs-12 col-sm-6 col-md-6">
+                    <a style="text-decoration: none;" href="{% url 'subcategory_list' cat_id=obj.id %}">
+
+                    <div class="box">
+                        <div class="box-pic">
+                            {% if obj.picture  %}
+                            <img src="{{obj.picture.url}}" alt="" style="max-width: 300px; max-height: 150px;">
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <h6 class="text-dark mb-2 mt-5">{{obj.name}}</h6>
+                        <!-- <p class="text-muted "> {توضیحات از دیتابیس} طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد . {توضیحات از دیتابیس}</p> -->
+                        
+                        <div style="display: flex;">
+                            
+                            <!-- <p class="text-muted " style="margin: 10px;">تاریخ : 98/85dsad</p> -->
+                        </div>
+                    </div>
+                </a>
+                </div>
+            
+            {% endfor %}
+            <!------finish-{ for }-------->
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

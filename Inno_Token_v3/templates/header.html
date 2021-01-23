@@ -1,0 +1,58 @@
+<div id="header">
+
+    <div class="container-fluid" style="background-color: white;" dir="rtl"  >
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">اینوتوکن</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav col">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'home' %}">صفحه اصلی <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    اینو توکن
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'provider_list' %}">خدمات دهندگان</a>
+                    <a class="dropdown-item" href="{% url 'accelerator_list' %}">معرف ها</a>
+                    <a class="dropdown-item" href="{% url 'startup_list' %}">استارتاپ ها</a>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'Blog' %}">اینو بلاگ</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'category_list' %}">خدمات</a>
+                </li>
+                
+                <a class="navbar-brand" style="margin-right: 25px;"></a>
+
+                <form class="form-inline" action="/service/search" method="GET">
+                <input class="form-control mr-sm-2" name='ser' type="search" placeholder="نام سرویس" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
+                </form>
+
+                <button type="button" class="btn btn-warning" style="margin-right: 70px; margin-left:25px;">دانلود کیف توکن</button>
+                <a  href="{% url 'show_cart' %}">
+                <button type="button" class="btn btn-danger">سبد خرید</button>
+                </a>  
+                <a  href="{% url 'login' %}">
+                  <button type="button" class="btn btn-danger">ورود</button>
+                </a>
+                <a  href="{% url 'signup' %}">
+                  <button type="button" class="btn btn-danger">ثبت نام</button>
+                </a>  
+                
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+
+
+</div>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+
+جزییات سرویس ها
+
+{% endblock title %}
+
+{% block content %}
+
+<h3 style="direction: rtl; text-align: center;">جزییات این سرویس  : </h3>
+
+<p style="direction: rtl; text-align: center;">--------------------------------------------------------------------</p>
+<ul style="direction: rtl; text-align: center; list-style-type:none;">
+    <li>*** {{ object.name }} ***</li>
+    <br>
+    <li>توضیحات  : {{ object.description}}</li>
+    <br>
+    <li>قیمت  : {{ object.price}} توکن</li>
+    <br>
+    <form action="{% url 'add_cart' service_id=object.id %}?next={{request.path}}" , method='post'>
+      {% csrf_token %}
+      <input type="submit" class="btn btn-outline-dark" value="اضافه کردن به سبد خرید">
+    </form>
+    
+</ul>
+<p style="direction: rtl; text-align: center;">--------------------------------------------------------------------</p>
+
+
+{% endblock content %}

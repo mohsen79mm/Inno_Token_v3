@@ -1,0 +1,25 @@
+{% extends 'base1.html' %}
+{% load static %}
+ {% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1 itemprop="title">{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <p class=" text-muted">{{ object.author }} | {{ object.created_on }}</p>
+        <p class="card-text ">{{ object.content |safe }}</p>
+        <div class="row" style="display: flex;">
+          <p>تگ  :  </p>
+          {% for tag in object.tag.all %}
+          <a   href="{% url 'tagged' tag.slug|lower %}" > {{tag|lower}} </a>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+{% endblock content %}

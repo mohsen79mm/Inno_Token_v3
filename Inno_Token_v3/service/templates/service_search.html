@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+جستجو 
+{% endblock title %}
+
+{% block content %}
+
+{% for service in serv %}
+<a href="{% url 'service_detail' service.pk %}">
+<p style="direction: rtl; text-align: right;">{{service.name}}</p> </a>
+
+{% endfor %}
+
+{% endblock content %}

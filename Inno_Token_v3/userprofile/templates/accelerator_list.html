@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+اینو توکن
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<section class="bg">
+    <div class="container-fluid">
+        
+        <!------start users_list -------->
+        <!------start -  for  python -------->
+        {% for obj in object_list %}
+        <div class="row box "  style="padding-top: 0%; padding-bottom: 1%;">
+            <div class="col-3" style="">
+                <!-- <div> -->
+                    {% if obj.logo  %}
+                    <img class="img-fluid" src="{{ obj.logo.url }}">
+                    {% endif %}
+                <!-- </div> -->
+
+                <!-- <div class="box-pic" style="max-width: 100%; max-height: 100%; position: static; ">
+                    <img src="img/download.png">
+                </div> -->
+
+            </div>
+            <div class="col-9">
+                <div>
+                    <h3 class="text-dark my-3 " style="text-align: right; ">نام : {{obj.lastname}}</h3>
+                    <p class="text-muted " style="text-align: right; "> توضیحات : {{obj.description}}</p>
+
+                </div>
+                <div class="text-right" style="margin-top: 3%;">
+
+                    <a href="{% url 'accelerator_detail' obj.pk %}"><button class="btn btn-light btn-outline-info ">مشاهده</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %} 
+        <!------finist - for python  -------->
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+{% endblock content %}
