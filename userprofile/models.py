@@ -66,6 +66,10 @@ class cuser(AbstractUser) :
     def __str__(self) : 
         return self.last_name
 
+    class Meta:
+        permissions = (
+            ('can_add_service', 'Can added service'),
+        )
 
 class File(models.Model):
     user = models.ForeignKey(cuser, related_name='file', on_delete=models.RESTRICT)

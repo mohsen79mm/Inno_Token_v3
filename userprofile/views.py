@@ -1,13 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect,Http404
+from django.shortcuts import render, get_object_or_404, redirect, Http404
 from .models import cuser , File
 from django.views.generic import ListView,DetailView
 from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, CustomUserCreationForm, CaptchaTestForm, ChangePasswordForm, SmsPasswordForm ,Addservice ,CompleteProfileForm , StartupProfileForm, ProviderProfileForm, AcceleratorProfileForm, CompleteProfileForm, CaptchaTestForm, ChangePasswordForm
+from .forms import LoginForm, CustomUserCreationForm, CaptchaTestForm, ChangePasswordForm, SmsPasswordForm ,Addservice ,CompleteProfileForm , StartupProfileForm, ProviderProfileForm, AcceleratorProfileForm, CompleteProfileForm, CaptchaTestForm, ChangePasswordForm, VerifyForm
 from kavenegar import *
 from sendsms import api
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Permission
 from cart.models import Factor 
 from service.models import Service
 from django.core.files.storage import FileSystemStorage
@@ -88,14 +89,55 @@ class SignUp(View):
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
+            phone = request.POST['phone']
+            password = request.POST['password1']
+            user_type = request.POST['user_type']
             form.save()
-            return redirect('login')
+            if user_type != 'کاربر':
+                u = cuser.objects.get(phone=phone)
+                permission = Permission.objects.get(name='Can added service')
+                u.user_permissions.add(permission)
+            
+            
+            user = authenticate(request, phone=phone, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('verify')
 
         context = {
             'form': form
         }
         return render(request, 'signup.html', context)
 
+class Verify(View):
+    code = cuser.objects.make_random_password(length=5, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889") 
+    print(code)
+
+    def get(self, request):
+        form = VerifyForm()
+        print(request.user.phone)
+
+        # api = KavenegarAPI('4A7954397758375742704553337376623853334E6C446B61742B7947634D322B4A495A374A442F444A4B493D')
+        params = { 'sender' : '1000596446', 'receptor': request.user.phone, 'message' : Verify.code}
+        print(Verify.code)
+        # api.sms_send(params)
+
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'verify.html', context)
+
+    def post(self, request):
+        form = VerifyForm(request.POST)
+        input_code = request.POST['code']
+        if form.is_valid() and input_code==Verify.code:
+            logout(request)
+            return redirect('login')
+
+        else:
+            return redirect('verify')
 
 class SmsPassword(View):
     def get(self, request):
@@ -194,34 +236,37 @@ class add_service(LoginRequiredMixin,View):
     login_url = 'login'
 
     def get(self, request):
-        cats = Category.objects.all()
-        form = Addservice()
-        context = {
-            'form': form,
-            'cat':cats,
-        }
-        return render(request, 'add_service.html', context)
+        if request.user.has_perm('userprofile.can_add_service'):
+            cats = Category.objects.all()
+            form = Addservice()
+            context = {
+                'form': form,
+                'cat':cats,
+            }
+            return render(request, 'add_service.html', context)
+        return HttpResponse("you can not add service")
 
     def post(self, request):
-        # request.POST.update({'cuser':request.user})
-        form = Addservice(request.POST,request.FILES)
-        # print(request.user)
+        if request.user.has_perm('userprofile.can_add_service'):
+            # request.POST.update({'cuser':request.user})
+            form = Addservice(request.POST,request.FILES)
+            # print(request.user)
 
-        if form.is_valid():
-            print('sub : ',request.POST.get('subs'))
-            # tozih code = record service sakhte mishe bar in asas ke cuser = request.user  hamon shakshi ke 
-            # dare to profile service ezafe mikone 
-            # field picture ke to model service tarif shode bayad intory tarif beshe dast nazanid ke 
-            # amper michasbonam XD  baghiasham moshakhase  XD  ba tashakor  haj mohsen
-            Service.objects.create(cuser=request.user,name=request.POST.get('name'),
-            description=request.POST.get('description'),price=request.POST.get('price'),subcategory=Subcategory.objects.get(id=request.POST.get('subs')),
-            category=Category.objects.get(id=request.POST.get('category')),picture=FileSystemStorage().save(
-                    f"{Service.picture.field.upload_to}/{request.FILES['picture'].name}", request.FILES['picture']))
+            if form.is_valid():
+                print('sub : ',request.POST.get('subs'))
+                # tozih code = record service sakhte mishe bar in asas ke cuser = request.user  hamon shakshi ke 
+                # dare to profile service ezafe mikone 
+                # field picture ke to model service tarif shode bayad intory tarif beshe dast nazanid ke 
+                # amper michasbonam XD  baghiasham moshakhase  XD  ba tashakor  haj mohsen
+                Service.objects.create(cuser=request.user,name=request.POST.get('name'),
+                description=request.POST.get('description'),price=request.POST.get('price'),subcategory=Subcategory.objects.get(id=request.POST.get('subs')),
+                category=Category.objects.get(id=request.POST.get('category')),picture=FileSystemStorage().save(
+                        f"{Service.picture.field.upload_to}/{request.FILES['picture'].name}", request.FILES['picture']))
 
-            return redirect('user_profile') 
-            
-        else:
-            return redirect('home')
+                return redirect('user_profile') 
+                
+            else:
+                return redirect('home')
 
 def load_sub(request):
     programming_id = request.GET.get('programming')

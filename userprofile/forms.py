@@ -19,6 +19,8 @@ class CustomUserCreationForm(UserCreationForm):
 class SmsPasswordForm(forms.Form):
     phone = forms.CharField(max_length=11, required=True)
 
+class VerifyForm(forms.Form):
+    code = forms.CharField(max_length=11, required=True)
 
 class ChangePasswordForm(forms.Form):
     old_pass = forms.CharField(widget=forms.PasswordInput)
