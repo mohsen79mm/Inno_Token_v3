@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+مرکز معرفی
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="content-profile-page">
+    <div class="profile-user-page card">
+       <div class="img-user-profile">
+         <img class="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" />
+         {% if object.logo  %}
+         <img class="avatar" src="{{ object.logo.url }}" alt="لوگو"/>
+         {% endif %}    
+        </div>
+           <!-- <button>Follow</button> -->
+           <div class="user-profile-data">
+             <h1> {{object.name_of_company}}</h1>
+             
+           </div> 
+           <div class="description-profile">{{object.content}}</div>
+        <ul class="data-user">
+         <li><a><span>تعداد سرویس های این کاربر</span><strong>3390</strong></a></li>
+         <li><a><span>امتیاز</span><strong>718</strong></a></li>
+         <li><a><span>سرویس ها</span><strong>239</strong></a></li>
+        </ul>
+       </div>
+     </div>
+ 
+ <footer>
+   
+ </footer>
+
+
+
+
+
+  
+    
+{% endblock content %}
+
+
+{% comment %}
+    
+
+
+<div class="container  my-5" style="background-color: white;">
+    <div class="row">
+
+        <div class="col-8">
+
+            <div style="padding: 2%;">
+                <h3 class="text-dark my-3 " style="text-align: right; ">مرکز معرفی {{object.name_of_company}}</h3>
+
+
+            </div>
+            <div style="padding: 2%;">
+                <p class="text-muted "> درباره این مرکز معرفی : {{object.content}} </p>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="col-4">
+
+
+            <div class="">
+                {% if object.logo  %}
+
+                <img class="img-fluid text-center" src="{{ object.logo.url }}">
+                {% endif %}
+            </div>
+
+
+            <div class="mt-2 pt-3">
+
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-internet-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.website}}</p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-email-100.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.email}}
+                        {{object.phone}}
+                    </p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-address-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.address}}</p>
+                </div>
+                <div class="row m-2" dir="ltr">
+                    <img class="img-fluid float-left" src="{% static 'img/logo-user-detail-page/icons8-linkedin-50.png'%}" width="40px" height="40px">
+                    <p class="m-2">{{object.linkedin}}</p>
+
+                   
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+{% endcomment %}
+    

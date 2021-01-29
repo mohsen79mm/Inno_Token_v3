@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+اینو توکن
+{% endblock title %}
+
+
+{% block content %}
+
+
+<div class="container">
+
+    {% for obj in object_list %}
+    <div class="row my-5 " style="background-color: white;">
+
+        <div class="col-3">
+            {% if obj.logo  %}
+            <img class="card-img" src="{{ obj.logo.url }}" style="width: 16rem; height: 10rem;" > 
+            {% endif %}
+        </div>
+        <div class="col-9 pt-3 pr-3" >
+            <h5 class="card-title text-right">نام :  {{obj.lastname}}</h5>
+            <h5 class="card-title text-right pb-3">توضیحات : {{obj.description}} </h5>
+            <a style="margin-right: 45rem;" href="{% url 'accelerator_detail' obj.pk %}"><button style="margin-bottom: 1rem;" class="btn btn-light btn-outline-info ">مشاهده</button></a>
+        </div>
+
+    </div>
+    {% endfor %} 
+
+    
+
+
+
+</div>
+
+
+    
+
+{% endblock content %}

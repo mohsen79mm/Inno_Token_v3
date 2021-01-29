@@ -1,0 +1,96 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    
+
+<div class="container bootstrap snippets bootdey " style="margin-bottom: 100px; margin-left: 250px;">
+    <div class="col-md-9 col-sm-8 content">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                  <li><a href="#">صفحه اصلی/</a></li>
+                  <li class="active">سبد خرید</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info panel-shadow">
+                    <div class="panel-heading">
+                        <h3>
+                            <img class="img-circle img-thumbnail" src="https://bootdey.com/img/Content/user_3.jpg">
+                            {{request.user}}
+                        </h3>
+                    </div>
+                    <div class="panel-body"> 
+                        <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>تصویر کالا</th>
+                                <th>نام سرویس</th>
+                                <th>قیمت واحد</th>
+                                <th>ارائه دهنده</th>
+                                <th> تعداد </th>
+                                <th></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_item %}
+                                <tr>
+                                    {% if item.service.picture %}
+                                    <td><img src="{{item.service.picture.url}}" class="img-cart"></td>
+                                    {% else %}
+                                    <td><img src="#" class="img-cart"></td>
+                                    {% endif %}
+
+                                    <td><strong>{{item.service.name}}</strong></td>
+                                    <td>{{item.service.price}}</td>
+                                    <td>{{item.service.cuser.last_name}} {{item.service.cuser.name_of_company}}</td>
+                                    <td> {{item.qty}}
+                                    <td>
+                                        <a href="{% url 'decrement_cart' item.service.id %}" class="btn btn-primary"><i class="fa fa-trash-o"> - </i></a>
+                                        <a href="{% url 'add_cart' item.service.id %}" class="btn btn-primary"><i class="fa fa-trash-o"> + </i></a>
+                                        <a href="{% url 'delete_from_cart' item.service.id %}" <button type="button" class="btn btn-danger">حذف</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                
+                                <tr>
+                                    <td colspan="6">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">قیمت کل محصولات</td>
+                                    <td>
+                                    {{tp}}
+
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            
+                <form action="{% url 'confirmation' %}" , method='post'>
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-dark" value="ادامه فرایند خرید">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+

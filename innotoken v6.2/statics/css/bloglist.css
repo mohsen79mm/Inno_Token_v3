@@ -1,0 +1,9 @@
+#imglist{
+    max-width: 100%; max-height: 100%; display: block
+}
+#plist{margin: 1px;}
+.nounderline{
+    text-decoration:none
+}
+a {  text-decoration:none;
+}

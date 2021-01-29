@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}
+
+سرویس ها 
+
+{% endblock title %}
+
+{% block content %}
+
+
+
+
+<div class="container">
+    <div class="row">
+        {% for e in object_list %}
+            <div class="col-md-3 text-right">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        {% if e.picture %}
+                        <div class="product-imitation">
+                            <img src="{{e.picture.url}}" alt="" style="width: 13rem; height: 17rem;">
+                        </div>
+                        {% else %}
+                        <div class="product-imitation">
+                            [ InnToken1 ]
+                        </div>
+                        {% endif %}
+
+                        <div class="product-desc">
+                            
+                            <p class="">{{ e.name }} </p>
+                            
+                            <div class="small m-t-xs" style="margin-bottom: 50px;">
+                                محصولی از {{e.cuser.last_name}}
+                        </div>
+                        <p class="">قیمت :{{e.price}} توکن</p>
+                        <div class="m-t text-righ">
+                            
+<!-- service detail -->     <a href="{% url 'service_detail' pk=e.id %}" class="btn btn-xs btn-outline btn-primary  ">     مشاهده جزییات  سرویس <i class="fa fa-long-arrow-left"> </i> </a>
+                            <form action="{% url 'add_cart' service_id=e.id %}?next={{request.path}}" , method='post'>
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger" style="margin-top: 10px;" value="اضافه کردن به سبد خرید">
+                            </form>                            
+
+
+
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}    
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}
