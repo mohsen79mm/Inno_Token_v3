@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+  
+
+
+<div class="container">
+        
+  <hr>
+  
+  
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                  <h4 class="card-title mt-2">ورود</h4>
+                </header>
+                <article class="card-body">
+                  <!-- <form method="POST">
+                    {% csrf_token %}
+                    
+                      
+                              <div class="form-group">
+                              <label for="phone"> شماره موبایل</label>
+                              <input id="phone" type="email" class="form-control" placeholder="">
+                              <small class="form-text text-muted"></small>
+                              </div> form-group end.// -->
+                              <!-- <div class="form-group">
+                                  <label for="password">پسورد</label>
+                                  <input id="password" class="form-control" type="password">
+                              </div> -->
+                               <!-- form-group end.// -->
+                              <!-- </div> form-row.// -->
+                               <!-- form-group end.// -->  
+                              <!-- <div class="form-group">
+                                  <button type="submit" class="btn btn-primary btn-block"> ورود  </button>
+                              </div> form-group//       -->
+                                                                       
+                          <!-- </form> --> 
+
+                        <form action="/profile/login/" , method="post">
+                            {% csrf_token %}
+                            {{form |crispy }}
+                            {{form2 |crispy}}
+                            <input type="submit"  name="ورود" class="  container btn btn-danger">
+                            <input type="hidden" name="next" value="{{ next }}">
+                        </form>
+
+                </article> <!-- card-body end .// -->
+            <div class="border-top card-body text-center">اکانت نداری؟ <a href="{% url 'signup' %}">ثبت نام کن</a></div>
+            <button type="submit" class=" btn btn-secondary"><a style="color: white;" href="{% url 'smspass' %}">forget password</a></button>
+        </div> <!-- card.// -->
+    </div> <!-- col.//-->
+</div> <!-- form-group end.// -->
+
+
+
+{% endblock content %}
+
+

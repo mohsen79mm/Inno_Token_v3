@@ -1,0 +1,4 @@
+<option value="">---select subs---</option>
+{% for sub in subs %}
+<option value="{{ sub.pk }}">{{ sub.name }}</option>
+{% endfor %}

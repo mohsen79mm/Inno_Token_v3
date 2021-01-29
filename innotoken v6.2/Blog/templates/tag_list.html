@@ -1,0 +1,62 @@
+{% extends "base1.html" %} 
+{% load jformat %}
+{% load nbsp %}
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading m-5 ">
+                    <h3 id='vm' class=" site-heading my-4 mt-3 text-white text-"  > به اینوبلاگ خوش آمدید </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div>
+    <p class="text-right mr-5">
+      تگ مورد نظر :  {{tag}}  
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        {% for post in posts %}
+        
+        <div class="clo-xs-12 col-sm-6 col-md-3">
+                <div class="box">
+                    <div class="box-pic">
+                        <img src="{{post.image.url}}" alt="" style=" max-width: 100%; max-height: 100%; display: block">
+                    </div>
+                    <div style="display: flex;">
+                        
+                        <p class="text-muted pt-1 " style="margin: 1px;">{{ post.created_on|jformat:" %B | %d | %Y"}} </p>
+                        <!-- <a href="#"><button style="margin-right: 5%;" class="btn btn-light btn-outline-primary ">مشاهده</button></a> -->
+                    </div>
+                    <hr>
+                    <a style="text-decoration : none" id="more" href="{% url 'post_detail' post.url  %}"><h6 class="text-dark my-3 text-right ">{{ post.title|striptags|nbsp2space|quot|zwnj}}</h6></a>
+                    <!-- <p class="text-muted "> {توضیحات از دیتابیس} طراح گرافیک از این متن به عنوان عنصری از ترکیب بندی می نماید، تا از نظر گرافیکی نشانگر چگونگی نوع و اندازه فونت و ظاهر متن باشد . {توضیحات از دیتابیس}</p> -->
+                </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{%endblock%}

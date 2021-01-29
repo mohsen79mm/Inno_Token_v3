@@ -1,0 +1,48 @@
+body {
+    font-family: vazir;
+    text-align: right;
+    direction: rtl;
+}
+
+
+/* ------------------------------------
+         feature-pic
+--------------------------------------*/
+
+.bg {
+    background-color: #f5f5f5;
+}
+
+.box {
+    padding: 50px 30px;
+    text-align: center;
+    box-shadow: 0 0 0 0 #ffffff;
+    transition: 0.3s;
+    border-radius: 5px;
+    transform: translateY(0);
+    height: 5px;
+}
+
+.box:hover {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transform: translateY(-5px);
+}
+
+.box-pic {
+    text-align: center;
+}
+
+.box .box-pic {
+    height: 160px;
+    margin-bottom: 20px;
+}
+
+.box .box-pic img {
+    /* filter: grayscale(100%); */
+    transition: 0.3s;
+}
+
+.box:hover .box-pic img {
+    filter: grayscale(0);
+}

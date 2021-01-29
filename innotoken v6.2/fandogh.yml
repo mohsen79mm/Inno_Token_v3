@@ -1,0 +1,17 @@
+kind: ExternalService
+name: first-django-service
+spec:
+  image_pull_policy: Always
+  port: 80
+  source:
+    context: .
+    media_path: media
+    project_type: django
+    python_version: 3.8.6
+    static_path: static_root
+    wsgi: intok3.wsgi
+  volume_mounts:
+  - mount_path: /usr/src/app/media
+    sub_path: first-django-service/media
+  domains:
+  - name: inntoken.ir

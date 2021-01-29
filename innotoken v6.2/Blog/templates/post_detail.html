@@ -1,0 +1,40 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% load jformat %}
+
+<style>
+  img{margin-right:auto!important;
+    display:block!important;
+  }
+</style>
+ {% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1 itemprop="title" class="my-5 text-right">{% block title %} {{ object.title }} {% endblock title %}</h1>
+
+        <img class="img-fluid mx-auto d-block" src="{{object.image.url}}" alt="" >
+   
+
+        <p class="card-text text-right ">{{ object.content |safe }}</p>
+        <p class=" text-muted text-right">{{ object.author }} | {{ object.created_on|jformat:" %B | %d | %Y" }}</p>
+        <hr>
+
+        <div class="row" style="display: flex;">
+          <p>تگ  :  </p>
+          {% for tag in object.tag.all %}
+          <a   href="{% url 'tagged' tag.slug|lower %}" > {{tag|lower}}</a>
+         
+          {% endfor %}
+          <br>
+
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+{% endblock content %}
